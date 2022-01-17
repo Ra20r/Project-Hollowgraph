@@ -5,7 +5,7 @@
 #define echoPin 2
 #define trigPin 3
 #define servoPin 9
-#define ADJUST(reading, theta, shaft) reading*cos(theta)+shaft
+#define ADJUST(reading, theta, shaft) (reading+shaft)*cos(theta)
 
 long duration;
 double distance;
@@ -14,6 +14,7 @@ int angle_step;
 int sweep;
 Servo servo;
 double data[181];
+char buffer[10];
 
 void readDistance() {
   digitalWrite(trigPin, LOW);
@@ -45,9 +46,9 @@ void loop() {
     angle = 1;
   for(; angle<=180; angle+=angle_step){
     servo.write(angle);
+    delay(15);
     readDistance();
     data[angle] = distance;
-    delay(5);
   }
   if(sweep==0)
     angle = 180;
@@ -55,13 +56,17 @@ void loop() {
     angle = 179;
   for(; angle>=sweep; angle-=angle_step){
     servo.write(angle);
+    delay(15);
     readDistance();
     data[angle] = (data[angle]+distance)/2.0;
-    data[angle] = ADJUST(data[angle], 0.355, 2.5);
-    delay(5);
+    //data[angle] = ADJUST(data[angle], 0.355, 2.5);
   }
   int i;
-  for(i=sweep; i<=180; i+=angle_step)
-    Serial.println(data[i]);
-  sweep = !sweep;
+  for(i=sweep; i<=180; i+=angle_step){
+    dtostrf(data[i], 3, 1, buffer);
+    Serial.print(buffer);
+    Serial.print(", ");
+  }
+  Serial.println();
+  //sweep = !sweep;
 }
