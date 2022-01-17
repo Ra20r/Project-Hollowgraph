@@ -5,37 +5,46 @@
 #define servoPin 9
 
 long duration;
-int distance;
+double distance;
 int angle;
 Servo servo;
+double data[180];
 
-void setup() {
-  pinMode(trigPin, OUTPUT);
-  pinMode(echoPin, INPUT);
-  servo.attach(servoPin);
-  angle = 0;
-  servo.write(angle);
-  Serial.begin(9600);
-}
-void loop() {
+void readDistance() {
   digitalWrite(trigPin, LOW);
   delayMicroseconds(2);
   digitalWrite(trigPin, HIGH);
   delayMicroseconds(10);
   digitalWrite(trigPin, LOW);
   duration = pulseIn(echoPin, HIGH);
-  distance = duration * 0.034 / 2;
-  Serial.print("Distance: ");
-  Serial.print(distance);
-  Serial.println(" cm");
-  
-  delay(1500);
-  /*for(; angle<=180; angle++){
+  distance = duration * 0.034 / 2.0;
+}
+
+void setup() {
+  pinMode(trigPin, OUTPUT);
+  pinMode(echoPin, INPUT);
+  servo.attach(servoPin);
+  angle = 1;
+  servo.write(angle);
+  Serial.begin(9600);
+}
+
+void loop() {
+  while(Serial.available()==0);
+  Serial.readString();
+  for(; angle<=180; angle++){
     servo.write(angle);
-    delay(10);
+    readDistance();
+    data[angle] = distance;
+    delay(5);
   }
-  for(; angle>=0; angle--){
+  for(; angle>=1; angle--){
     servo.write(angle);
-    delay(10);
-  }*/
+    readDistance();
+    data[angle] = (data[angle]+distance)/2.0;
+    delay(5);
+  }
+  int i;
+  for(i=1; i<=180; i++)
+    Serial.println(data[i]);
 }
