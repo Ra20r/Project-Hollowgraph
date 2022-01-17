@@ -1,14 +1,19 @@
 #include <Servo.h>
-
+//0-180 is counter clockwise
+//even row -> 0-180 (even)
+//odd row -> 1-179 (odd)
 #define echoPin 2
 #define trigPin 3
 #define servoPin 9
+#define ADJUST(reading, theta, shaft) reading*cos(theta)+shaft
 
 long duration;
 double distance;
 int angle;
+int angle_step;
+int sweep;
 Servo servo;
-double data[180];
+double data[181];
 
 void readDistance() {
   digitalWrite(trigPin, LOW);
@@ -24,7 +29,9 @@ void setup() {
   pinMode(trigPin, OUTPUT);
   pinMode(echoPin, INPUT);
   servo.attach(servoPin);
-  angle = 1;
+  angle = 0;
+  angle_step = 2;
+  sweep = 0;
   servo.write(angle);
   Serial.begin(9600);
 }
@@ -32,19 +39,29 @@ void setup() {
 void loop() {
   while(Serial.available()==0);
   Serial.readString();
-  for(; angle<=180; angle++){
+  if(sweep == 0)
+    angle = 0;
+  else
+    angle = 1;
+  for(; angle<=180; angle+=angle_step){
     servo.write(angle);
     readDistance();
     data[angle] = distance;
     delay(5);
   }
-  for(; angle>=1; angle--){
+  if(sweep==0)
+    angle = 180;
+  else
+    angle = 179;
+  for(; angle>=sweep; angle-=angle_step){
     servo.write(angle);
     readDistance();
     data[angle] = (data[angle]+distance)/2.0;
+    data[angle] = ADJUST(data[angle], 0.355, 2.5);
     delay(5);
   }
   int i;
-  for(i=1; i<=180; i++)
+  for(i=sweep; i<=180; i+=angle_step)
     Serial.println(data[i]);
+  sweep = !sweep;
 }
