@@ -5,7 +5,7 @@
 #define echoPin 2
 #define trigPin 3
 #define servoPin 9
-#define ADJUST(reading, theta, shaft) reading*cos(theta)+shaft
+#define ADJUST(reading, theta, shaft) (reading+shaft)*cos(theta)
 
 long duration;
 double distance;
