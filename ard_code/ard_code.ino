@@ -1,11 +1,14 @@
 #include <Servo.h>
+
 //0-180 is counter clockwise
 //even row -> 0-180 (even)
 //odd row -> 1-179 (odd)
+
 #define echoPin 2
 #define trigPin 3
 #define servoPin 9
-#define ADJUST(reading, theta, shaft) (reading+shaft)*cos(theta)
+#define SWEEP_DELAY 10
+#define ADJUST(reading, error_base, error_hypo, shaft) (error_base / error_hypo)* (reading + shaft)
 
 long duration;
 double distance;
@@ -23,7 +26,7 @@ void readDistance() {
   delayMicroseconds(10);
   digitalWrite(trigPin, LOW);
   duration = pulseIn(echoPin, HIGH);
-  distance = duration * 0.034 / 2.0;
+  distance = duration * 0.0343 / 2.0;
 }
 
 void setup() {
@@ -46,7 +49,7 @@ void loop() {
     angle = 1;
   for(; angle<=180; angle+=angle_step){
     servo.write(angle);
-    delay(15);
+    delay(SWEEP_DELAY);
     readDistance();
     data[angle] = distance;
   }
@@ -56,10 +59,10 @@ void loop() {
     angle = 179;
   for(; angle>=sweep; angle-=angle_step){
     servo.write(angle);
-    delay(15);
+    delay(SWEEP_DELAY);
     readDistance();
     data[angle] = (data[angle]+distance)/2.0;
-    //data[angle] = ADJUST(data[angle], 0.355, 2.5);
+    //data[angle] = ADJUST(data[angle], 6.0, 6.1, 1.6);
   }
   int i;
   for(i=sweep; i<=180; i+=angle_step){
