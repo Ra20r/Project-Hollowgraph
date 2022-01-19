@@ -7,7 +7,7 @@
 #define echoPin 2
 #define trigPin 3
 #define servoPin 9
-#define SWEEP_DELAY 10
+#define SWEEP_DELAY 35
 #define ADJUST(reading, error_base, error_hypo, shaft) (error_base / error_hypo)* (reading + shaft)
 
 long duration;
@@ -21,7 +21,7 @@ char buffer[10];
 
 void readDistance() {
   digitalWrite(trigPin, LOW);
-  delayMicroseconds(2);
+  delayMicroseconds(5);
   digitalWrite(trigPin, HIGH);
   delayMicroseconds(10);
   digitalWrite(trigPin, LOW);
