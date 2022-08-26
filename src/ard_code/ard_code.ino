@@ -7,7 +7,7 @@
 #define echoPin 2
 #define trigPin 3
 #define servoPin 9
-#define SWEEP_DELAY 35
+#define SWEEP_DELAY 10
 #define ADJUST(reading, error_base, error_hypo, shaft) (error_base / error_hypo)* (reading + shaft)
 
 long duration;
