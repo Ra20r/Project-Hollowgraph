@@ -1,5 +1,5 @@
 p5.disableFriendlyErrors = true
-const url = "http://127.0.0.1:5500/Data/data.csv"
+const url = "http://127.0.0.1:5500/data/data.csv"
 let data
 let scl = 10
 let spaceBetween = 100
@@ -15,7 +15,7 @@ function preload() {
         download: true,
         skipEmptyLines: true,
         complete: (results) => {
-            // Parsed arraw has all the data in string
+            // Parsed array has all the data in string
             data = results.data
             data.forEach((row) => {
                 for (let i = 0; i < row.length; i++) {
