@@ -1,0 +1,4 @@
+Name, Subject, SWEEP_DELAY, OBSERVATIONS, LIMIT
+cuboid_single_arc, cuboid, 55, 50, 15
+cuboid_single_arc_1, cuboid, 55, 50, 20
+cuboid_single_arc_2, cuboid, 55, 50, 10
