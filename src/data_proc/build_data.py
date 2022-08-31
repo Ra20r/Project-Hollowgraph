@@ -1,7 +1,7 @@
 import pandas as pd
 import argparse
 
-msg = ""
+msg = "This is still an unstable script. Use with caution.\nThe output has to be /data/data.csv for the 3d renderer to access the data."
 
 parser = argparse.ArgumentParser(description=msg)
 parser.add_argument("--smooth", action = "store_true", help = "Can be used to smoothen (using 5SMA) already processed 3d data (1 for True and 0 for False).\nOnly an input file needed with this flag.")
@@ -12,9 +12,11 @@ args = parser.parse_args()
 
 err = False
 
-def smooth():
-    df = pd.read_csv(args.input)
-    #to be implemented
+def smooth(inputf, outputf):
+    df = pd.read_csv(inputf)
+    df = df.rolling(5).mean() # 5SMA
+    df.dropna(inplace=True)
+    df.to_csv(outputf, index=False)
 
 def add_row(df):
     col_count = len(df.columns)
@@ -39,18 +41,16 @@ def build():
     i = 0
     while (i+180) < df.shape[0]:
         add_row(df.iloc[i: i+180])
-    args.input = args.output
 
 if args.smooth:
     if args.input and args.output and args.measure:
         if args.measure == 1 or args.measure == 2:
             build()
-            smooth()
+            smooth(args.output, args.output)
         else:
             err = True
     elif args.input and args.output:
-        i=0
-        smooth()
+        smooth(args.input, args.output)
     else:
         err = True
 elif args.input and args.output and args.measure:
