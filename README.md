@@ -14,7 +14,7 @@ This project aims to explore the possibility of using ultrasonic sensor data to 
 - [Arduino IDE](https://www.arduino.cc/en/software/), used for programming the Arduino.
 - [puTTY](https://www.putty.org/), captures data from the serial and logs it into a csv
 - Python on Jupyter notebook is used for data processing. Specific packages used: [Pandas](https://pandas.pydata.org/) for data processing and [Matplotlib](https://matplotlib.org/) for visualisation.
-- JavaScript is used for rendering a 3 dimensional plot of the figure.
+- [p5.js](https://p5js.org/) with [WEBGL](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API) is used for rendering a 3 dimensional plot of the figure.
 
 ### The project is divided into three parts
 
