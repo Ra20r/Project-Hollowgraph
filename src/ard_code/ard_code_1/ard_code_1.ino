@@ -6,7 +6,7 @@
 #define SWEEP_DELAY 55 // around 18 Hz
 #define REVERSE_SWEEP_DELAY 1
 #define OBSERVATIONS 50
-// time (without outliers) = [OBSERVATIONS * 180 * 55 * (2025/1000)] milliseconds
+// time (without outliers) = [OBSERVATIONS * 181 * 55 * (2025/1000)] milliseconds
 #define LIMIT 10 //to be set after manual inspection of the subject
 #define ADJUST(reading, error_base, error_hypo, shaft) (error_base / error_hypo)* (reading + shaft)
 
