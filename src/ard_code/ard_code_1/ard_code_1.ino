@@ -7,7 +7,7 @@
 #define REVERSE_SWEEP_DELAY 1
 #define OBSERVATIONS 50
 // time (without outliers) = [OBSERVATIONS * 181 * 55 * (2025/1000)] milliseconds
-#define LIMIT 10 //to be set after manual inspection of the subject
+#define LIMIT 7 //to be set after manual inspection of the subject
 #define ADJUST(reading, error_base, error_hypo, shaft) (error_base / error_hypo)* (reading + shaft)
 
 long duration;
@@ -45,6 +45,12 @@ void setup() {
   sweep = 0;
   servo.write(angle);
   Serial.begin(9600);
+  for(int i=0; i<OBSERVATIONS; i++){
+    dtostrf(i, 3, 1, buffer);
+    Serial.print(buffer);
+    Serial.print(", ");
+  }
+  Serial.println();
 }
 
 void loop() {

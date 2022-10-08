@@ -51,7 +51,7 @@ def build():
     i = 0
     while (i+181) <= df.shape[0]:
         add_row(df.iloc[i: i+181])
-        i += 182
+        i += 181
 
 if args.smooth:
     if args.input and args.output and args.measure:
