@@ -1,0 +1,3 @@
+specific angles are problematic in getting data: stiff corners or curves
+skip and fill in according to previous readings
+close approximation for fairly defined surfaces

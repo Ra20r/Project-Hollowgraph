@@ -53,7 +53,7 @@ Assumptions, problems and proposed solutions:
 
 ### Data Processing
 
-All the data processing programs are contained in the `src/data_proc/` folder. It contains two files: build_data.py and [data_processing_1.ipynb](https://github.com/Ra20r/Project-Hollowgraph/blob/main/src/data_proc/data_processing_1.ipynb). The Jupyter Notebook deals with the analysis of the data and is well annotated. The build_data.py is the utility routine based on the observations from the Jupyter Notebook and can be used to build data using command line arguments accessed using `python3 build_data.py -h` (currently unstable).
+All the data processing programs are contained in the `src/data_proc/` folder. It contains three files: build_data.py, [data_processing_1.ipynb](https://github.com/Ra20r/Project-Hollowgraph/blob/main/src/data_proc/data_processing_1.ipynb) and [render_data_analyser.ipynb](https://github.com/Ra20r/Project-Hollowgraph/blob/main/src/data_proc/render_data_analyser.ipynb). The first Jupyter Notebook deals with the analysis of the data and is well annotated. The build_data.py is the utility routine based on the observations from the Jupyter Notebook and can be used to build render data using command line arguments accessed using `python3 build_data.py -h` (currently unstable) and finally, the second Jupyter notebook deals with the analysis of the render data generated.
 
 ![Comparison of graphs](./public/2d_graph.png)
 
