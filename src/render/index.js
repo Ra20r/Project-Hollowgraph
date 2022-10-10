@@ -1,17 +1,35 @@
 p5.disableFriendlyErrors = true
-// const url = "http://127.0.0.1:5500/data/render_data/render2.csv"
+document.addEventListener("contextmenu", (event) => event.preventDefault())
 const url = "../../data/render_data/render2.csv"
 let data
-let scl = 10
-let spaceBetween = 100
-let zoff = 0
-let yoff = 30
 let xoff = 0
+let yoff = 30
+let zoff = -200
 
-let alpha = 0
-let beta = 0
+let alpha = beta = 0
 
-let colored = true
+const tweak = {
+    spaceBetween: 50,
+    colored: true,
+    scl: 10
+}
+
+const pane = new Tweakpane.Pane({
+    title: 'Parameters',
+    expanded: true
+})
+
+pane.addInput(
+    tweak, 'spaceBetween',
+    { min: 10, max: 70, step: 1 }
+)
+
+pane.addInput(
+    tweak, 'scl',
+    { min: 10.0, max: 50.0 }
+)
+
+pane.addInput(tweak, 'colored')
 
 function preload() {
     Papa.parse(url, {
@@ -44,38 +62,44 @@ function draw() {
 
     background(0)
     ambientLight(200)
-    directionalLight(255, 255, 255, 0, 0, 1)
+    directionalLight(200, 200, 200, 0, 0, 1)
+    // pointLight(255, 255, 255, 0, -10, 10);
     normalMaterial()
+    
     rotateY(alpha)
     rotateX(beta)
 
-    stroke(0)
+    stroke(20)
     strokeWeight(0.5)
 
     for (let j = 0; j < data.length - 1; j++) {
 
         let hue = (360 / data.length) * j
-        let sat = colored ? 80 : 0        
-        fill(hue, sat, 100)
+        let sat = tweak.colored ? 80 : 0        
+        fill(hue, sat, 80)
 
         beginShape(TRIANGLE_STRIP)
         for (let i = 0; i < data[0].length; i++) {
-            let a = data[j][i] * scl
-            let b = data[j + 1][i] * scl
+            let a = data[j][i] * tweak.scl
+            let b = data[j + 1][i] * tweak.scl
 
             let theta = -radians(i)
             let x = a * cos(theta) + xoff
             let y = a * sin(theta) + yoff
-            let z = -j * spaceBetween - zoff
+            let z = -j * tweak.spaceBetween - zoff
             vertex(x, y, z)
             x = b * cos(theta) + xoff
             y = b * sin(theta) + yoff
-            vertex(x, y, z - spaceBetween)
+            vertex(x, y, z - tweak.spaceBetween)
         }
         endShape()
     }
 
     checkControls()
+
+    // Dev
+    // alpha += 0.01
+    // beta += 0.01
 }
 
 function checkControls() {
