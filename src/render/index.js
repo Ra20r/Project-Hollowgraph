@@ -31,6 +31,15 @@ pane.addInput(
 
 pane.addInput(tweak, 'colored')
 
+const btn = pane.addButton({
+    title: 'save frame',
+    label: 'Save',   // optional
+})
+
+btn.on('click', () => {
+    saveCanvas('render_' + year() + month() + day() + hour() + minute() + second(), 'png')
+})
+
 function preload() {
     Papa.parse(url, {
         download: true,
