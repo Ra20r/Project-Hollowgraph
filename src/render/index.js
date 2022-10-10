@@ -1,5 +1,5 @@
 p5.disableFriendlyErrors = true
-const url = "http://127.0.0.1:5500/data/data.csv"
+const url = "http://127.0.0.1:5500/data/render_data/render2.csv"
 let data
 let scl = 10
 let spaceBetween = 100
@@ -10,6 +10,8 @@ let xoff = 0
 let alpha = 0
 let beta = 0
 
+let colored = true
+
 function preload() {
     Papa.parse(url, {
         download: true,
@@ -17,17 +19,23 @@ function preload() {
         complete: (results) => {
             // Parsed array has all the data in string
             data = results.data
-            data.forEach((row) => {
+            console.log(data);
+
+            for (let j = 1; j < data.length; j++) {
+                let row = data[j]
                 for (let i = 0; i < row.length; i++) {
                     row[i] = parseFloat(row[i])
                 }
-            })
+            }
+            data.shift() // Deletes the first row (the header)
         },
     })
 }
 
 function setup() {
     createCanvas(windowWidth, windowHeight, WEBGL)
+
+    colorMode(HSB)
 }
 
 function draw() {
@@ -40,19 +48,24 @@ function draw() {
     rotateY(alpha)
     rotateX(beta)
 
-    fill(255)
     stroke(0)
     strokeWeight(0.5)
 
-    for (let i = 0; i < data[0].length - 1; i++) {
+    for (let j = 0; j < data.length - 1; j++) {
+
+        let hue = (360 / data.length) * j
+        let sat = colored ? 80 : 0        
+        fill(hue, sat, 100)
+
         beginShape(TRIANGLE_STRIP)
-        for (let j = 0; j < data.length - 1; j++) {
+        for (let i = 0; i < data[0].length; i++) {
             let a = data[j][i] * scl
-            let b = data[j][i + 1] * scl
-            let theta = -radians(2 * j)
+            let b = data[j + 1][i] * scl
+
+            let theta = -radians(i)
             let x = a * cos(theta) + xoff
             let y = a * sin(theta) + yoff
-            let z = -i * spaceBetween - zoff
+            let z = -j * spaceBetween - zoff
             vertex(x, y, z)
             x = b * cos(theta) + xoff
             y = b * sin(theta) + yoff
