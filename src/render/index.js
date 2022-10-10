@@ -52,8 +52,11 @@ function preload() {
 
 function setup() {
     createCanvas(windowWidth, windowHeight, WEBGL)
-
     colorMode(HSB)
+
+    setAttributes('antialias', true)
+
+    createEasyCam({ distance: 400 })
 }
 
 function draw() {
