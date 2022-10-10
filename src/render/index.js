@@ -33,7 +33,7 @@ pane.addInput(tweak, 'colored')
 
 const btn = pane.addButton({
     title: 'save frame',
-    label: 'Save',   // optional
+    label: 'save',   // optional
 })
 
 btn.on('click', () => {
