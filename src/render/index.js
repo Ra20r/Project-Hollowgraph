@@ -1,5 +1,6 @@
 p5.disableFriendlyErrors = true
-const url = "http://127.0.0.1:5500/data/render_data/render2.csv"
+// const url = "http://127.0.0.1:5500/data/render_data/render2.csv"
+const url = "../../data/render_data/render2.csv"
 let data
 let scl = 10
 let spaceBetween = 100
