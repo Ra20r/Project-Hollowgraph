@@ -38,7 +38,6 @@ function preload() {
         complete: (results) => {
             // Parsed array has all the data in string
             data = results.data
-            console.log(data);
 
             for (let j = 1; j < data.length; j++) {
                 let row = data[j]
@@ -96,10 +95,6 @@ function draw() {
     }
 
     checkControls()
-
-    // Dev
-    // alpha += 0.01
-    // beta += 0.01
 }
 
 function checkControls() {
@@ -109,8 +104,8 @@ function checkControls() {
     if (keyIsDown(68)) xoff -= 10 // D
     if (keyIsDown(32)) yoff += 1 // space
     if (keyIsDown(16)) yoff -= 1 // left shift
-    if (keyIsDown(LEFT_ARROW)) alpha += degrees(0.0005)
-    if (keyIsDown(RIGHT_ARROW)) alpha -= degrees(0.0005)
-    if (keyIsDown(UP_ARROW)) beta -= degrees(0.0005)
-    if (keyIsDown(DOWN_ARROW)) beta += degrees(0.0005)
+    if (keyIsDown(LEFT_ARROW)) alpha += 0.01
+    if (keyIsDown(RIGHT_ARROW)) alpha -= 0.01
+    if (keyIsDown(UP_ARROW)) beta -= 0.01
+    if (keyIsDown(DOWN_ARROW)) beta += 0.01
 }
