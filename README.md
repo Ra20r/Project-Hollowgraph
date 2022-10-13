@@ -59,7 +59,18 @@ All the data processing programs are contained in the `src/data_proc/` folder. I
 
 ### Rendering Software
 
-All data processing is done considering single 2d arcs which are then stitched together to get data for a 3d picture. `src/render/` contains everything needed to render using processed data from a csv file. `index.js` can access the data from a file named `data.csv` from `data` folder. In order to do this, the script also requires a server be opened in the root of the repository on port 5500. The script uses canvas to generate the render and then also integrates mouse and keyboard actions for observation.
+![Demo Screenshot](./assets/demo.png)
+
+All data processing is done considering single 2d arcs which are then stitched together to get data for a 3d picture. `src/render/` contains everything needed to render using processed data from a csv file. `index.js` accesses the csv data by sending a `GET` request. The csv data is then asynchronously parsed into a JavaScript 2D array, using the `papaparse` library. The 3D model is made by stitching together singular 2D arcs. The rendering is done using WEBGL mode of the p5.js library. The variable, `spaceBetween` sets the distance between each layer. This is adjustable using a graphical user interface in the preview, as well as several other parameters. The adjustable parameters of the render is listed below:  
+
+| Parameter | Function |
+|-----------|----------|
+|  `spaceBetween` | Controls the distance between each layers |
+| `scl` | Sets the scale of the model |
+| `colored`| Colors each layer differently |
+| `save`| Saves current frame |
+
+Use your mouse for interacting with the model. You can also use standard keyboard controls like WASD, spacebar, shift and arrow keys.
 
 ### Applications
 
