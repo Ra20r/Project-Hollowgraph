@@ -61,17 +61,17 @@ All the data processing programs are contained in the `src/data_proc/` folder. I
 
 ![Demo Screenshot](./assets/demo.png)
 
-All data processing is done considering single 2d arcs which are then stitched together to get data for a 3d picture. `src/render/` contains everything needed to render using processed data from a csv file. `index.js` accesses the csv data by sending a `GET` request. The csv data is then asynchronously parsed into a JavaScript 2D array, using the `papaparse` library. The 3D model is made by stitching together singular 2D arcs. The rendering is done using WEBGL mode of the p5.js library. The variable, `spaceBetween` sets the distance between each layer. This is adjustable using a graphical user interface in the preview, as well as several other parameters. The adjustable parameters of the render is listed below:  
+All data processing is done considering single 2D arcs which are then stitched together to get data for a 3D render. `src/render/` contains everything needed to render using processed data from a csv file. `index.js` accesses the csv data by sending a `GET` request. The csv data is then asynchronously parsed into a JavaScript 2D array, using the `papaparse` library. The rendering is done using WEBGL mode of the p5.js library. The variable, `spaceBetween` sets the distance between each layer. This is adjustable using a graphical user interface in the preview, as well as several other parameters. The adjustable parameters of the render are listed below:  
 
 | Parameter | Function |
 |-----------|----------|
-|  `spaceBetween` | Controls the distance between each layers |
+|  `spaceBetween` | Controls the distance between each layer |
 | `scl` | Sets the scale of the model |
 | `colored`| Colors each layer differently |
 | `save`| Saves current frame |
 
-Use your mouse for interacting with the model. You can also use standard keyboard controls like WASD, spacebar, shift and arrow keys.
+Mouse can be used for interacting with the model. There is also support for standard keyboard controls like WASD, spacebar, shift and arrow keys.
 
 ### Applications
 
-Current version of this project has a lot of assumptions and flaws which can be remedied. More sophisticated models built on this can be used for various applications from terrain mapping to space exploration. The potential is unfathomable. Last but not least, it would be insanely cool to have something map a 3d space and put up a hologram of it, maybe, in the future.
+Current version of this project has a lot of assumptions and flaws which can be remedied. More sophisticated models built on this can be used for various applications from terrain mapping to space exploration. The potential is unfathomable. Last but not least, it would be insanely cool to have something map a 3D space and put up a hologram of it, maybe, in the future.
