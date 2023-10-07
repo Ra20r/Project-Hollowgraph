@@ -61,7 +61,7 @@ All the data processing programs are contained in the `src/data_proc/` folder. I
 
 ![Demo Screenshot](./assets/demo.png)
 
-[Love Demo](https://ra20r.github.io/Project-Hollowgraph/src/render/)
+[Live Demo](https://ra20r.github.io/Project-Hollowgraph/src/render/)
 
 All data processing is done considering single 2D arcs which are then stitched together to get data for a 3D render. `src/render/` contains everything needed to render using processed data from a csv file. `index.js` accesses the csv data by sending a `GET` request. The csv data is then asynchronously parsed into a JavaScript 2D array, using the `papaparse` library. The rendering is done using WEBGL mode of the p5.js library. The variable, `spaceBetween` sets the distance between each layer. This is adjustable using a graphical user interface in the preview, as well as several other parameters. The adjustable parameters of the render are listed below:  
 
